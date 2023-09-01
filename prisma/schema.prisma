@@ -11,12 +11,29 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  first_name String
-  last_name String
-  address String?
-  email String
-  phone_number String?
-  date_of_birth String?
+  id                String    @id @default(uuid())
+  first_name        String
+  last_name         String
+  address           String?
+  email             String
+  phone_number      String?
+  date_of_birth     String?
   is_notify_enabled Boolean?
+  products          Product[] @relation("Products")
+  liked_products    Product[] @relation("likedPoducts")
+}
+
+model Product {
+  id                   String  @id @default(uuid())
+  owner                User    @relation("Products", fields: [user_id], references: [id])
+  user_id              String
+  name                 String
+  location             String
+  description          String
+  price                Float
+  brand                String
+  sale_condition       String
+  is_availabe_for_swap Boolean
+  liked_by             User    @relation("likedPoducts", fields: [liked_by_id], references: [id])
+  liked_by_id          String
 }

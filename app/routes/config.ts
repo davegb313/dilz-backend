@@ -1,22 +1,20 @@
-const router = require('express').Router();
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+const router = require("express").Router();
+const userDBServices = require("../db-services/user");
 
-router.get("/", (req:any, res:any) => {
-    return res.json('Backend is working');
+router.get("/", (req: any, res: any) => {
+  return res.json("Backend is working");
 });
 
-router.post('/create', (req: any, res: any) => {
-    console.log(req)
-    prisma.user.create({
-        data: {
-            first_name: req.body.firstName,
-            last_name: req.body.lastName,
-            email: req.body.email
-        }
-    })
-} )
+// router.post("/create", (req: any, res: any) => {});
 
+router.get("/users", (req: any, res: any) => {
+  const users = userDBServices.getUsers();
+  return res.json(users);
+});
 
+router.get("/user/:id", (req: any, res: any) => {
+  const user = userDBServices.getUser(req.body.id);
+  return res.json(user);
+});
 
 module.exports = router;

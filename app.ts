@@ -1,11 +1,10 @@
 import express from "express";
+// all API endpoints
+const routs = require("./app/routes/config"); // fetch the API endpoints
 
 const app = express();
 
-// all API endpoints
-const routs = require('./app/routes/config'); // fetch the API endpoints
-app.use('/', routs);
-
+app.use("/", routs);
 
 app.listen(3000, () =>
   console.log(`
